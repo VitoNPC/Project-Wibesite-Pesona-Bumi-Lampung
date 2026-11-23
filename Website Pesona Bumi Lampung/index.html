@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pesona Bumi Lampung - Surga Pariwisata Sumatra</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="Style.css">
+    
+    <!-- Tailwind Custom Configuration -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                    },
+                    colors: {
+                        emerald: {
+                            50: '#ecfdf5',
+                            600: '#059669',
+                            700: '#047857',
+                            800: '#065f46',
+                            900: '#064e3b',
+                        },
+                        ocean: {
+                            500: '#0284c7',
+                            600: '#0284c7',
+                            700: '#0369a1',
+                            800: '#075985',
+                        },
+                        amber: {
+                            500: '#f59e0b',
+                            600: '#d97706',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="font-sans text-slate-800 bg-slate-50 antialiased selection:bg-emerald-500 selection:text-white">
+
+    <!-- Toast Notification Container -->
+    <div id="toast-container" class="fixed top-20 right-5 z-50 flex flex-col gap-3 pointer-events-none"></div>
+
+    <!-- NAVBAR -->
+    <nav id="navbar" class="fixed top-0 left-0 right-0 z-40 transition-all duration-300 py-4 px-4 sm:px-8 bg-slate-900/40 backdrop-blur-md border-b border-white/10">
+        <div class="max-w-7xl mx-auto flex items-center justify-between">
+            <a href="#beranda" class="flex items-center gap-3 group">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-emerald-600 to-ocean-500 flex items-center justify-center text-white font-black text-xl shadow-lg shadow-emerald-900/30 group-hover:scale-105 transition-transform">
+                    <i class="fa-solid me-0.5 fa-mountain-sun"></i>
+                </div>
+                <div class="flex flex-col">
+                    <span class="text-xl font-extrabold tracking-tight text-white group-hover:text-amber-400 transition-colors">Pesona Lampung</span>
+                    <span class="text-[10px] text-emerald-300 font-semibold tracking-widest uppercase -mt-1">Explore The Hidden Gem</span>
+                </div>
+            </a>
+
+            <div class="hidden md:flex items-center gap-8 font-medium text-sm text-slate-200">
+                <a href="#beranda" class="nav-link text-amber-400 font-semibold transition-colors">Beranda</a>
+                <a href="#destinasi" class="nav-link hover:text-amber-400 transition-colors">Destinasi</a>
+                <a href="#paket" class="nav-link hover:text-amber-400 transition-colors">Paket Wisata</a>
+                <a href="#galeri" class="nav-link hover:text-amber-400 transition-colors">Galeri</a>
+                <a href="#kontak" class="nav-link hover:text-amber-400 transition-colors">Kontak</a>
+            </div>
+
+            <div class="hidden md:block">
+                <button onclick="openBookingModal('General Tour')" class="bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-slate-950 font-bold px-5 py-2.5 rounded-full shadow-lg shadow-amber-500/20 hover:shadow-amber-500/40 hover:-translate-y-0.5 active:translate-y-0 transition-all text-sm flex items-center gap-2">
+                    <i class="fa-solid fa-paper-plane text-xs"></i>
+                    <span>Pesan Sekarang</span>
+                </button>
+            </div>
+
+            <button id="mobile-menu-btn" class="md:hidden text-white p-2 rounded-lg hover:bg-white/10 transition-colors" aria-label="Toggle Navigation">
+                <i class="fa-solid fa-bars text-xl"></i>
+            </button>
+        </div>
+
+        <div id="mobile-menu" class="hidden md:hidden mt-4 pb-4 border-t border-white/10 pt-4 flex flex-col gap-3 text-slate-200 font-medium">
+            <a href="#beranda" class="mobile-nav-link hover:bg-white/10 px-4 py-2 rounded-lg transition-colors">Beranda</a>
+            <a href="#destinasi" class="mobile-nav-link hover:bg-white/10 px-4 py-2 rounded-lg transition-colors">Destinasi</a>
+            <a href="#paket" class="mobile-nav-link hover:bg-white/10 px-4 py-2 rounded-lg transition-colors">Paket Wisata</a>
+            <a href="#galeri" class="mobile-nav-link hover:bg-white/10 px-4 py-2 rounded-lg transition-colors">Galeri & Testimoni</a>
+            <a href="#kontak" class="mobile-nav-link hover:bg-white/10 px-4 py-2 rounded-lg transition-colors">Kontak</a>
+            <button onclick="openBookingModal('General Tour')" class="w-full bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold py-2.5 rounded-xl mt-2 text-center transition-colors">
+                Pesan Sekarang
+            </button>
+        </div>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <section id="beranda" class="relative min-h-screen flex items-center justify-center pt-24 pb-16 px-4 sm:px-6 bg-slate-950 overflow-hidden">
+        <div class="absolute inset-0 z-0">
+            <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=2000&q=80" alt="Pantai Lampung" class="w-full h-full object-cover object-center opacity-40 scale-105 animate-pulse-slow">
+            <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/60 to-slate-900/30"></div>
+            <div class="absolute inset-0 bg-gradient-to-r from-emerald-950/40 via-transparent to-ocean-950/40"></div>
+        </div>
+
+        <div class="relative z-10 max-w-5xl mx-auto text-center mt-10">
+            <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-500/20 border border-emerald-500/40 text-emerald-300 text-xs sm:text-sm font-semibold mb-6 backdrop-blur-md">
+                <i class="fa-solid fa-compass text-amber-400"></i>
+                <span>Jelajahi Surga Tersembunyi di Indonesia</span>
+            </div>
+
+            <h1 class="text-4xl sm:text-6xl md:text-7xl font-black text-white tracking-tight leading-tight mb-6">
+                Pesona Bumi <span class="bg-clip-text text-transparent bg-gradient-to-r from-emerald-400 via-teal-300 to-ocean-500">Lampung</span>
+            </h1>
+
+            <p class="text-lg sm:text-xl text-slate-300 max-w-3xl mx-auto font-normal leading-relaxed mb-10">
+                Temukan keajaiban alam dari lumba-lumba Teluk Kiluan, keasrian pulau-pulau eksotis Pahawang, hingga ombak kelas dunia Tanjung Setia.
+            </p>
+
+            <div class="bg-white/10 backdrop-blur-xl border border-white/20 p-4 sm:p-6 rounded-3xl shadow-2xl max-w-4xl mx-auto text-left">
+                <form id="hero-search-form" onsubmit="handleHeroSearch(event)" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                    <div class="bg-slate-900/60 p-3 rounded-2xl border border-white/10">
+                        <label class="block text-xs font-semibold text-emerald-400 uppercase tracking-wider mb-1">
+                            <i class="fa-solid fa-location-dot mr-1 text-amber-400"></i> Destinasi
+                        </label>
+                        <select id="search-destination" class="w-full bg-transparent text-white text-sm font-medium focus:outline-none cursor-pointer">
+                            <option value="" class="bg-slate-900 text-slate-300">Semua Destinasi</option>
+                            <option value="pahawang" class="bg-slate-900 text-white">Pulau Pahawang</option>
+                            <option value="kiluan" class="bg-slate-900 text-white">Teluk Kiluan</option>
+                            <option value="waykambas" class="bg-slate-900 text-white">Taman Nasional Way Kambas</option>
+                            <option value="tanjungsetia" class="bg-slate-900 text-white">Pantai Tanjung Setia</option>
+                            <option value="gigihiu" class="bg-slate-900 text-white">Gigi Hiu Pegadungan</option>
+                        </select>
+                    </div>
+
+                    <div class="bg-slate-900/60 p-3 rounded-2xl border border-white/10">
+                        <label class="block text-xs font-semibold text-emerald-400 uppercase tracking-wider mb-1">
+                            <i class="fa-solid fa-calendar-days mr-1 text-amber-400"></i> Tanggal
+                        </label>
+                        <input type="date" id="search-date" class="w-full bg-transparent text-white text-sm font-medium focus:outline-none cursor-pointer">
+                    </div>
+
+                    <div class="bg-slate-900/60 p-3 rounded-2xl border border-white/10">
+                        <label class="block text-xs font-semibold text-emerald-400 uppercase tracking-wider mb-1">
+                            <i class="fa-solid fa-users mr-1 text-amber-400"></i> Wisatawan
+                        </label>
+                        <select id="search-guests" class="w-full bg-transparent text-white text-sm font-medium focus:outline-none cursor-pointer">
+                            <option value="1" class="bg-slate-900 text-white">1 Orang</option>
+                            <option value="2" class="bg-slate-900 text-white">2-4 Orang</option>
+                            <option value="5" class="bg-slate-900 text-white">5-10 Orang</option>
+                            <option value="10" class="bg-slate-900 text-white">Rombongan (>10)</option>
+                        </select>
+                    </div>
+
+                    <div class="flex items-center">
+                        <button type="submit" class="w-full h-full min-h-[52px] bg-gradient-to-r from-emerald-600 to-emerald-700 hover:from-emerald-500 hover:to-emerald-600 text-white font-bold rounded-2xl shadow-lg shadow-emerald-900/50 hover:shadow-emerald-600/50 transition-all flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                            <span>Cari Wisata</span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION DESTINASI POPULER -->
+    <section id="destinasi" class="py-24 px-4 sm:px-6 max-w-7xl mx-auto">
+        <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-4">
+            <div>
+                <span class="text-emerald-600 font-bold uppercase tracking-widest text-sm">Eksplorasi Keindahan</span>
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 mt-1">Destinasi Wisata Populer</h2>
+            </div>
+            <p class="text-slate-600 max-w-md text-sm sm:text-base">
+                Pilihan destinasi terbaik di Lampung dengan pemandangan menakjubkan dan pengalaman tak terlupakan.
+            </p>
+        </div>
+
+        <div id="destinasi-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8"></div>
+    </section>
+
+    <!-- SECTION PAKET TOUR -->
+    <section id="paket" class="py-24 px-4 sm:px-6 bg-slate-900 text-white relative overflow-hidden">
+        <div class="absolute -top-40 -left-40 w-96 h-96 bg-emerald-600/10 rounded-full blur-3xl"></div>
+        <div class="absolute -bottom-40 -right-40 w-96 h-96 bg-ocean-600/10 rounded-full blur-3xl"></div>
+
+        <div class="max-w-7xl mx-auto relative z-10">
+            <div class="text-center max-w-2xl mx-auto mb-16">
+                <span class="text-amber-400 font-bold uppercase tracking-widest text-sm">Penawaran Spesial</span>
+                <h2 class="text-3xl sm:text-4xl font-extrabold mt-1">Pilihan Paket Wisata Tour</h2>
+                <p class="text-slate-400 mt-3 text-sm sm:text-base">
+                    Pilih paket liburan sesuai kebutuhan dan budget Anda. Semua paket sudah termasuk pemandu lokal berpengalaman.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-stretch">
+                <!-- Paket 1 -->
+                <div class="bg-slate-800/80 border border-slate-700/80 rounded-3xl p-8 flex flex-col justify-between hover:border-emerald-500/50 transition-all hover:shadow-xl hover:-translate-y-1">
+                    <div>
+                        <div class="flex justify-between items-center mb-4">
+                            <span class="px-3 py-1 rounded-full bg-slate-700 text-slate-300 font-semibold text-xs">Backpacker / One Day</span>
+                            <i class="fa-solid fa-person-hiking text-emerald-400 text-xl"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-2">Paket Hemat Pahawang</h3>
+                        <p class="text-slate-400 text-xs mb-6">Sangat cocok untuk perjalanan singkat sehari tanpa menginap.</p>
+                        
+                        <div class="mb-6">
+                            <span class="text-3xl font-extrabold text-white">Rp 250.000</span>
+                            <span class="text-slate-400 text-sm"> / orang</span>
+                        </div>
+
+                        <div class="border-t border-slate-700 my-6"></div>
+
+                        <ul class="space-y-3.5 text-sm text-slate-300 mb-8">
+                            <li class="flex items-center gap-3"><i class="fa-solid fa-circle-check text-emerald-400 text-xs"></i><span>Sewa Kapal Snorkeling Seharian</span></li>
+                            <li class="flex items-center gap-3"><i class="fa-solid fa-circle-check text-emerald-400 text-xs"></i><span>Makan Siang Kotak & Air Mineral</span></li>
+                            <li class="flex items-center gap-3"><i class="fa-solid fa-circle-check text-emerald-400 text-xs"></i><span>Alat Snorkeling Lengkap + Pelampung</span></li>
+                            <li class="flex items-center gap-3"><i class="fa-solid fa-circle-check text-emerald-400 text-xs"></i><span>Dokumentasi Underwater Gopro</span></li>
+                        </ul>
+                    </div>
+
+                    <button onclick="openBookingModal('Paket Hemat Pahawang', 250000)" class="w-full py-3.5 rounded-xl border border-emerald-500 text-emerald-400 font-bold hover:bg-emerald-500 hover:text-white transition-all text-sm">
+                        Pilih Paket Hemat
+                    </button>
+                </div>
+
+                <!-- Paket 2 -->
+                <div class="bg-gradient-to-b from-slate-800 to-slate-850 border-2 border-emerald-500 rounded-3xl p-8 flex flex-col justify-between shadow-2xl relative scale-105 my-2 md:my-0">
+                    <div class="absolute -top-4 left-1/2 -translate-x-1/2 bg-emerald-500 text-slate-950 font-black text-xs uppercase px-4 py-1 rounded-full tracking-wider shadow-md">
+                        Paling Populer
+                    </div>
+
+                    <div>
+                        <div class="flex justify-between items-center mb-4 pt-2">
+                            <span class="px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-300 font-semibold text-xs">2 Hari 1 Malam</span>
+                            <i class="fa-solid fa-people-group text-emerald-400 text-xl"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-2">Paket Family & Friends</h3>
+                        <p class="text-slate-400 text-xs mb-6">Pilihan paling pas untuk liburan santai keluarga atau rombongan kecil.</p>
+                        
+                        <div class="mb-6">
+                            <span class="text-3xl font-extrabold text-white">Rp 750.000</span>
+                            <span class="text-slate-400 text-sm"> / orang</span>
+                        </div>
+
+                        <div class="border-t border-slate-700 my-6"></div>
+
+                        <ul class="space-y-3.5 text-sm text-slate-200 mb-8">
+                            <li class="flex items-center gap-3"><i class="fa-solid fa-circle-check text-emerald-400 text-xs"></i><span>Menginap 1 Malam di Homestay AC</span></li>
+                            <li class="flex items-center gap-3"><i class="fa-solid fa-circle-check text-emerald-400 text-xs"></i><span>Makan 4x (Termasuk BBQ Ikan Laut)</span></li>
+                            <li class="flex items-center gap-3"><i class="fa-solid fa-circle-check text-emerald-400 text-xs"></i><span>Private Boat Snorkeling Multi-spot</span></li>
+                            <li class="flex items-center gap-3"><i class="fa-solid fa-circle-check text-emerald-400 text-xs"></i><span>Foto & Video Drone Dokumentasi</span></li>
+                        </ul>
+                    </div>
+
+                    <button onclick="openBookingModal('Paket Family & Friends', 750000)" class="w-full py-3.5 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-slate-950 font-extrabold transition-all text-sm shadow-lg shadow-emerald-500/30">
+                        Pilih Paket Family
+                    </button>
+                </div>
+
+                <!-- Paket 3 -->
+                <div class="bg-slate-800/80 border border-slate-700/80 rounded-3xl p-8 flex flex-col justify-between hover:border-ocean-500/50 transition-all hover:shadow-xl hover:-translate-y-1">
+                    <div>
+                        <div class="flex justify-between items-center mb-4">
+                            <span class="px-3 py-1 rounded-full bg-slate-700 text-amber-300 font-semibold text-xs">3 Hari 2 Malam VIP</span>
+                            <i class="fa-solid fa-crown text-amber-400 text-xl"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-2">Paket Premium VIP</h3>
+                        <p class="text-slate-400 text-xs mb-6">Pengalaman privat eksklusif dengan fasilitas resor mewah.</p>
+                        
+                        <div class="mb-6">
+                            <span class="text-3xl font-extrabold text-white">Rp 1.850.000</span>
+                            <span class="text-slate-400 text-sm"> / orang</span>
+                        </div>
+
+                        <div class="border-t border-slate-700 my-6"></div>
+
+                        <ul class="space-y-3.5 text-sm text-slate-300 mb-8">
+                            <li class="flex items-center gap-3"><i class="fa-solid fa-circle-check text-ocean-400 text-xs"></i><span>Menginap di Water Villa Mewah</span></li>
+                            <li class="flex items-center gap-3"><i class="fa-solid fa-circle-check text-ocean-400 text-xs"></i><span>Antar-Jemput Bandara Radin Inten II</span></li>
+                            <li class="flex items-center gap-3"><i class="fa-solid fa-circle-check text-ocean-400 text-xs"></i><span>Private Speedboat Exclusives</span></li>
+                            <li class="flex items-center gap-3"><i class="fa-solid fa-circle-check text-ocean-400 text-xs"></i><span>All-inclusive Dining & Seafood Party</span></li>
+                        </ul>
+                    </div>
+
+                    <button onclick="openBookingModal('Paket Premium VIP', 1850000)" class="w-full py-3.5 rounded-xl border border-amber-500 text-amber-400 font-bold hover:bg-amber-500 hover:text-slate-950 transition-all text-sm">
+                        Pilih Paket VIP
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- GALERI & TESTIMONI SECTION -->
+    <section id="galeri" class="py-24 px-4 sm:px-6 max-w-7xl mx-auto">
+        <div class="mb-20">
+            <div class="text-center max-w-xl mx-auto mb-10">
+                <span class="text-emerald-600 font-bold uppercase tracking-widest text-sm">Momen Indah</span>
+                <h2 class="text-3xl font-extrabold text-slate-900 mt-1">Galeri Foto Wisatawan</h2>
+            </div>
+
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <div class="relative group overflow-hidden rounded-2xl cursor-pointer aspect-square" onclick="openLightbox('https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&w=1000&q=80', 'Snorkeling di Pahawang')">
+                    <img src="https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&w=600&q=80" alt="Snorkeling Pahawang" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                    <div class="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4">
+                        <span class="text-white text-sm font-semibold"><i class="fa-solid fa-magnifying-glass-plus mr-2"></i>Snorkeling Pahawang</span>
+                    </div>
+                </div>
+                <div class="relative group overflow-hidden rounded-2xl cursor-pointer aspect-square" onclick="openLightbox('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1000&q=80', 'Pantai Pasir Putih')">
+                    <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=600&q=80" alt="Pantai" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                    <div class="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4">
+                        <span class="text-white text-sm font-semibold"><i class="fa-solid fa-magnifying-glass-plus mr-2"></i>Sunset Pantai Lampung</span>
+                    </div>
+                </div>
+                <div class="relative group overflow-hidden rounded-2xl cursor-pointer aspect-square" onclick="openLightbox('https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=1000&q=80', 'Lumba-lumba Kiluan')">
+                    <img src="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=600&q=80" alt="Lumba-lumba" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                    <div class="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4">
+                        <span class="text-white text-sm font-semibold"><i class="fa-solid fa-magnifying-glass-plus mr-2"></i>Atraksi Lumba-Lumba</span>
+                    </div>
+                </div>
+                <div class="relative group overflow-hidden rounded-2xl cursor-pointer aspect-square" onclick="openLightbox('https://images.unsplash.com/photo-1509316975850-ff9c5deb0cd9?auto=format&fit=crop&w=1000&q=80', 'Batu Gigi Hiu')">
+                    <img src="https://images.unsplash.com/photo-1509316975850-ff9c5deb0cd9?auto=format&fit=crop&w=600&q=80" alt="Gigi Hiu" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                    <div class="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4">
+                        <span class="text-white text-sm font-semibold"><i class="fa-solid fa-magnifying-glass-plus mr-2"></i>Eksotisme Gigi Hiu</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div>
+            <div class="text-center max-w-xl mx-auto mb-12">
+                <span class="text-emerald-600 font-bold uppercase tracking-widest text-sm">Ulasan Pengunjung</span>
+                <h2 class="text-3xl font-extrabold text-slate-900 mt-1">Apa Kata Mereka?</h2>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="bg-white p-6 rounded-2xl shadow-md border border-slate-100 flex flex-col justify-between">
+                    <p class="text-slate-600 text-sm italic mb-6">"Liburan 3 hari di Pahawang bareng tim luar biasa banget! Tour guidenya ramah, alat snorkeling bersih, dan spot fotonya mantap."</p>
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-full bg-emerald-100 text-emerald-800 font-bold flex items-center justify-center text-sm">AR</div>
+                        <div><h4 class="font-bold text-sm text-slate-900">Andini Rizky</h4><p class="text-xs text-slate-500">Wisatawati asal Jakarta</p></div>
+                    </div>
+                </div>
+                <div class="bg-white p-6 rounded-2xl shadow-md border border-slate-100 flex flex-col justify-between">
+                    <p class="text-slate-600 text-sm italic mb-6">"Lihat lumba-lumba langsung di Teluk Kiluan pengalaman sekali seumur hidup! Pelayanan super profesional dan tepat waktu."</p>
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-full bg-ocean-100 text-ocean-800 font-bold flex items-center justify-center text-sm">BP</div>
+                        <div><h4 class="font-bold text-sm text-slate-900">Budi Pratama</h4><p class="text-xs text-slate-500">Wisatawan asal Bandung</p></div>
+                    </div>
+                </div>
+                <div class="bg-white p-6 rounded-2xl shadow-md border border-slate-100 flex flex-col justify-between">
+                    <p class="text-slate-600 text-sm italic mb-6">"Surfing di Tanjung Setia benar-benar epic! Ombaknya konsisten dan pemandangannya indah banget. Pasti bakal balik lagi."</p>
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-full bg-amber-100 text-amber-800 font-bold flex items-center justify-center text-sm">MS</div>
+                        <div><h4 class="font-bold text-sm text-slate-900">Michael Santos</h4><p class="text-xs text-slate-500">Surfer asal Bali</p></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer id="kontak" class="bg-slate-950 text-slate-400 pt-16 pb-12 border-t border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 mb-12">
+                <div class="space-y-4">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-emerald-600 to-ocean-500 flex items-center justify-center text-white font-black text-xl">
+                            <i class="fa-solid fa-mountain-sun"></i>
+                        </div>
+                        <span class="text-xl font-extrabold text-white">Pesona Lampung</span>
+                    </div>
+                    <p class="text-sm text-slate-400 leading-relaxed">Penyedia layanan wisata resmi dan terpercaya untuk eksplorasi destinasi keindahan alam serta kebudayaan di Provinsi Lampung.</p>
+                </div>
+                <div>
+                    <h4 class="text-white font-bold mb-4 text-base">Navigasi Cepat</h4>
+                    <ul class="space-y-2.5 text-sm">
+                        <li><a href="#beranda" class="hover:text-emerald-400 transition-colors">Beranda</a></li>
+                        <li><a href="#destinasi" class="hover:text-emerald-400 transition-colors">Destinasi Populer</a></li>
+                        <li><a href="#paket" class="hover:text-emerald-400 transition-colors">Paket Tour & Harga</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-white font-bold mb-4 text-base">Hubungi Kami</h4>
+                    <ul class="space-y-3 text-sm">
+                        <li class="flex items-start gap-3"><i class="fa-solid fa-location-dot mt-1 text-emerald-400"></i><span>Jl. Raden Intan No. 88, Bandar Lampung</span></li>
+                        <li class="flex items-center gap-3"><i class="fa-solid fa-phone text-emerald-400"></i><span>+62 812-3456-7890</span></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-white font-bold mb-4 text-base">Kantor Operasional</h4>
+                    <div class="w-full h-36 rounded-2xl bg-slate-900 border border-slate-800 overflow-hidden relative flex items-center justify-center p-4 text-center">
+                        <div class="relative z-10">
+                            <i class="fa-solid fa-map-location-dot text-3xl text-emerald-400 mb-1"></i>
+                            <p class="text-xs font-semibold text-white">Bandar Lampung, Indonesia</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-slate-800/80 pt-8 text-center text-xs">
+                <p>&copy; 2026 Pesona Bumi Lampung. Hak Cipta Dilindungi Undang-Undang.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- MODAL DETAIL DESTINASI -->
+    <div id="detail-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-sm opacity-0 pointer-events-none transition-opacity duration-300">
+        <div class="bg-white rounded-3xl max-w-2xl w-full overflow-hidden shadow-2xl transform scale-95 transition-transform duration-300 max-h-[90vh] flex flex-col">
+            <div class="relative h-64 sm:h-72">
+                <img id="modal-img" src="" alt="Destinasi" class="w-full h-full object-cover">
+                <button onclick="closeModal('detail-modal')" class="absolute top-4 right-4 w-9 h-9 bg-slate-950/60 hover:bg-slate-950 text-white rounded-full flex items-center justify-center backdrop-blur-md transition-colors">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+            <div class="p-6 overflow-y-auto space-y-4">
+                <div class="flex justify-between items-start">
+                    <div>
+                        <h3 id="modal-title" class="text-2xl font-bold text-slate-900"></h3>
+                        <p id="modal-location" class="text-sm text-slate-500 flex items-center gap-1 mt-1"><i class="fa-solid fa-location-dot text-emerald-600"></i> <span></span></p>
+                    </div>
+                    <div class="text-right">
+                        <div id="modal-rating" class="text-amber-500 font-bold text-sm"></div>
+                        <div id="modal-price" class="text-emerald-700 font-extrabold text-lg mt-1"></div>
+                    </div>
+                </div>
+                <p id="modal-desc" class="text-slate-600 text-sm leading-relaxed"></p>
+                <div class="bg-slate-50 p-4 rounded-2xl border border-slate-100">
+                    <h4 class="font-bold text-slate-900 text-xs uppercase tracking-wider mb-2">Fasilitas Utama</h4>
+                    <div id="modal-facilities" class="flex flex-wrap gap-2"></div>
+                </div>
+                <div class="pt-2 flex gap-3">
+                    <button onclick="closeModal('detail-modal')" class="flex-1 py-3 rounded-xl border border-slate-200 text-slate-700 font-bold text-sm">Tutup</button>
+                    <button id="modal-book-btn" class="flex-1 py-3 rounded-xl bg-emerald-600 text-white font-bold text-sm">Pesan Sekarang</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL FORM PEMESANAN & PEMBAYARAN -->
+    <div id="booking-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-sm opacity-0 pointer-events-none transition-opacity duration-300">
+        <div class="bg-white rounded-3xl max-w-lg w-full overflow-hidden shadow-2xl transform scale-95 transition-transform duration-300 p-6 sm:p-8 max-h-[90vh] overflow-y-auto">
+            <div class="flex justify-between items-center mb-6">
+                <div>
+                    <h3 class="text-2xl font-extrabold text-slate-900">Form Pemesanan & Pembayaran</h3>
+                    <p class="text-xs text-slate-500 mt-1">Pilih metode pembayaran & selesaikan reservasi</p>
+                </div>
+                <button onclick="closeModal('booking-modal')" class="w-8 h-8 bg-slate-100 hover:bg-slate-200 text-slate-600 rounded-full flex items-center justify-center">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <form id="booking-form" onsubmit="handleBookingSubmit(event)" class="space-y-4">
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Nama Lengkap</label>
+                    <input type="text" required id="book-name" placeholder="Contoh: Budi Santoso" class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:border-emerald-600 text-sm">
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Nomor WhatsApp</label>
+                        <input type="tel" required id="book-phone" placeholder="08123456789" class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:border-emerald-600 text-sm">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Tanggal Tour</label>
+                        <input type="date" required id="book-date" class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:border-emerald-600 text-sm">
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Pilihan Paket / Wisata</label>
+                    <input type="text" id="book-package" readonly class="w-full px-4 py-3 rounded-xl border border-slate-100 bg-slate-50 text-slate-700 font-bold text-sm">
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Jumlah Peserta</label>
+                        <input type="number" min="1" value="1" id="book-guests" oninput="calculateTotal()" class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:border-emerald-600 text-sm">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Total Harga</label>
+                        <input type="text" id="book-total-display" readonly class="w-full px-4 py-3 rounded-xl border border-emerald-200 bg-emerald-50 text-emerald-800 font-black text-sm">
+                    </div>
+                </div>
+
+                <!-- PILIHAN METODE PEMBAYARAN -->
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 uppercase mb-2">Metode Pembayaran</label>
+                    <div class="grid grid-cols-3 gap-2">
+                        <label class="border rounded-xl p-3 text-center cursor-pointer hover:border-emerald-600 text-xs font-bold flex flex-col items-center gap-1">
+                            <input type="radio" name="payment_method" value="BCA Transfer" checked class="accent-emerald-600">
+                            <span>BCA Transfer</span>
+                        </label>
+                        <label class="border rounded-xl p-3 text-center cursor-pointer hover:border-emerald-600 text-xs font-bold flex flex-col items-center gap-1">
+                            <input type="radio" name="payment_method" value="QRIS" class="accent-emerald-600">
+                            <span>QRIS / QR</span>
+                        </label>
+                        <label class="border rounded-xl p-3 text-center cursor-pointer hover:border-emerald-600 text-xs font-bold flex flex-col items-center gap-1">
+                            <input type="radio" name="payment_method" value="Dana / OVO" class="accent-emerald-600">
+                            <span>E-Wallet</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="pt-2">
+                    <button type="submit" class="w-full py-3.5 bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold rounded-xl shadow-lg transition-colors text-sm">
+                        Lanjut ke Pembayaran & Upload Bukti
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL UPLOAD BUKTI PEMBAYARAN -->
+    <div id="payment-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-sm opacity-0 pointer-events-none transition-opacity duration-300">
+        <div class="bg-white rounded-3xl max-w-md w-full overflow-hidden shadow-2xl p-6 sm:p-8 text-center">
+            <h3 class="text-xl font-extrabold text-slate-900 mb-2">Selesaikan Pembayaran</h3>
+            <p class="text-xs text-slate-500 mb-4">Silakan transfer sesuai total tagihan ke rekening berikut:</p>
+            
+            <div class="bg-slate-50 p-4 rounded-2xl border border-slate-200 mb-6 text-left">
+                <p class="text-xs text-slate-500 font-semibold">BANK BCA (A/N Pesona Lampung Tour)</p>
+                <p class="text-lg font-black text-slate-900 tracking-wider">1234-5678-9012</p>
+                <div class="mt-2 pt-2 border-t border-slate-200 flex justify-between text-xs">
+                    <span class="text-slate-500">Total Tagihan:</span>
+                    <span id="pay-total-amount" class="font-bold text-emerald-700">Rp 0</span>
+                </div>
+            </div>
+
+            <form onsubmit="handleProofSubmit(event)" class="space-y-4 text-left">
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Upload Bukti Transfer (Foto/Screenshot)</label>
+                    <input type="file" required accept="image/*" id="payment-proof" class="w-full text-xs text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-semibold file:bg-emerald-50 file:text-emerald-700 hover:file:bg-emerald-100 cursor-pointer border border-slate-200 rounded-xl p-2">
+                </div>
+
+                <div class="pt-2 flex gap-2">
+                    <button type="button" onclick="closeModal('payment-modal')" class="w-1/3 py-3 rounded-xl border border-slate-200 text-slate-700 font-bold text-xs">Batal</button>
+                    <button type="submit" class="w-2/3 py-3 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-xl text-xs shadow-lg">Kirim Bukti & Selesai</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- LIGHTBOX -->
+    <div id="lightbox-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/90 backdrop-blur-md opacity-0 pointer-events-none transition-opacity duration-300" onclick="closeModal('lightbox-modal')">
+        <div class="relative max-w-4xl w-full flex flex-col items-center">
+            <img id="lightbox-img" src="" alt="Enlarged" class="max-h-[80vh] w-auto rounded-2xl shadow-2xl object-contain">
+            <p id="lightbox-caption" class="text-white text-sm font-semibold mt-4 bg-slate-900/80 px-4 py-2 rounded-full border border-white/10"></p>
+        </div>
+    </div>
+
+    <!-- Custom JS Script -->
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,26 @@
+/* Custom CSS Extensions */
+@keyframes pulseSlow {
+    0%, 100% { transform: scale(1.05); }
+    50% { transform: scale(1); }
+}
+
+.animate-pulse-slow {
+    animation: pulseSlow 12s ease-in-out infinite;
+}
+
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: #0f172a;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #059669;
+    border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #10b981;
+}
